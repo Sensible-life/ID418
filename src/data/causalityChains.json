@@ -1,0 +1,88 @@
+{
+  "chains": [
+    {
+      "id": "joseon_founding",
+      "title": "조선 건국",
+      "date": "1392년 7월",
+      "before": [
+        {
+          "id": "plan",
+          "title": "정몽주 암살 계획",
+          "date": "1392년 3월",
+          "type": "정치적 모의",
+          "description": "이성계 일파가 정몽주 제거를 논의"
+        },
+        {
+          "id": "assassination",
+          "title": "선죽교 사건",
+          "date": "1392년 4월",
+          "type": "암살",
+          "description": "이방원이 정몽주를 선죽교에서 살해"
+        }
+      ],
+      "current": {
+        "id": "founding",
+        "title": "조선 건국",
+        "date": "1392년 7월",
+        "type": "왕조 교체",
+        "description": "이성계가 왕위에 올라 조선을 건국",
+        "impact": "높음"
+      },
+      "after": [
+        {
+          "id": "capital_discussion",
+          "title": "한양 천도 논의",
+          "date": "1394년 1월",
+          "type": "정치적 결정",
+          "description": "새 수도 건설 계획 시작"
+        },
+        {
+          "id": "capital_move",
+          "title": "한양 천도",
+          "date": "1394년 10월",
+          "type": "수도 이전",
+          "description": "한양으로 수도를 옮기고 궁궐 건설"
+        }
+      ]
+    },
+    {
+      "id": "gyeongsul_coup",
+      "title": "계유정난",
+      "date": "1453년 10월",
+      "before": [
+        {
+          "id": "tension",
+          "title": "문종 재위 시기 긴장",
+          "date": "1452년",
+          "type": "정치적 긴장",
+          "description": "수양대군과 대신들 간의 갈등"
+        }
+      ],
+      "current": {
+        "id": "coup",
+        "title": "계유정난",
+        "date": "1453년 10월",
+        "type": "정변",
+        "description": "수양대군이 김종서 등을 제거하고 정권 장악",
+        "impact": "매우 높음"
+      },
+      "after": [
+        {
+          "id": "enthronement",
+          "title": "세조 즉위",
+          "date": "1455년 6월",
+          "type": "왕위 계승",
+          "description": "수양대군이 세조로 즉위"
+        },
+        {
+          "id": "purge",
+          "title": "정적 숙청",
+          "date": "1455-1456년",
+          "type": "정치적 숙청",
+          "description": "반대 세력 정리 및 권력 집중"
+        }
+      ]
+    }
+  ]
+}
+

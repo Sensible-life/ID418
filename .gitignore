@@ -30,4 +30,6 @@ dist-ssr
 .env.development.local
 
 # Large data files (too big for GitHub)
-data/
+# 프로젝트 루트의 data/ 폴더만 무시 (815MB XML 파일들)
+/data/
+# src/data/는 작은 JSON 캐시 파일이므로 포함됨

@@ -1,17 +1,32 @@
 // src/components/CharacterMotivationSearch.jsx
 
-import React, { useState } from 'react';
-
-const mockResults = [
-  { id: 1, snippet: "세조가 몹시 '불안'해하며 궁궐 뒤뜰을 서성였다는 기록이 있다.", emotion: "불안", date: "1455년 10월" },
-  { id: 2, snippet: "신숙주가 '야심'을 숨기지 않고 이 일에 앞장섰다.", emotion: "야심", date: "1453년 10월" },
-  { id: 3, snippet: "김종서의 '주저'하는 모습에 왕의 노여움이 극에 달했다.", emotion: "주저", date: "1453년 9월" },
-];
+import React, { useState, useMemo } from 'react';
+import characterEmotionsData from '../data/characterEmotions.json';
 
 const CharacterMotivationSearch = () => {
   const [characterName, setCharacterName] = useState('한명회');
   const [targetEmotion, setTargetEmotion] = useState('야망');
   const [isSearching, setIsSearching] = useState(false);
+
+  // 캐시된 데이터에서 검색 결과 가져오기
+  const searchResults = useMemo(() => {
+    const characterData = characterEmotionsData[characterName];
+    if (!characterData || !characterData.emotions) {
+      return [];
+    }
+    
+    const emotionData = characterData.emotions[targetEmotion];
+    if (!emotionData || !Array.isArray(emotionData)) {
+      return [];
+    }
+    
+    return emotionData.map((item, idx) => ({
+      id: idx + 1,
+      snippet: item.snippet,
+      emotion: targetEmotion,
+      date: item.date
+    }));
+  }, [characterName, targetEmotion]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -118,11 +133,11 @@ const CharacterMotivationSearch = () => {
               borderRadius: '9999px',
               fontWeight: '600'
             }}>
-              {mockResults.length}건
+              {searchResults.length}건
             </span>
           </div>
           <ul className="results-list">
-            {mockResults.map(result => (
+            {searchResults.length > 0 ? searchResults.map(result => (
               <li key={result.id} className="result-item">
                 <div className="result-header">
                   <span className="result-emotion">
@@ -132,7 +147,16 @@ const CharacterMotivationSearch = () => {
                 </div>
                 <p className="result-snippet">{result.snippet}</p>
               </li>
-            ))}
+            )) : (
+              <li className="result-item" style={{ 
+                textAlign: 'center', 
+                padding: '2rem',
+                color: '#94a3b8',
+                cursor: 'default'
+              }}>
+                <p>'{characterName}'와 '{targetEmotion}' 관련 기록을 찾을 수 없습니다.</p>
+              </li>
+            )}
           </ul>
         </div>
         <div style={{ 
