@@ -1,53 +1,37 @@
 // src/components/CausalityChain.jsx
 
 import React, { useState } from 'react';
+import causalityChainsData from '../data/causalityChains.json';
 
 const CausalityChain = () => {
-  const [selectedEvent, setSelectedEvent] = useState('event2');
+  const [selectedEvent, setSelectedEvent] = useState('joseon_founding');
+  const [selectedChain, setSelectedChain] = useState('joseon_founding');
 
-  // 모의 인과관계 데이터
-  const causalityData = {
-    before: [
-      {
-        id: 'event0',
-        title: '정몽주 암살 계획',
-        date: '1392년 3월',
-        type: '정치적 모의',
-        description: '이성계 일파가 정몽주 제거를 논의',
-      },
-      {
-        id: 'event1',
-        title: '선죽교 사건',
-        date: '1392년 4월',
-        type: '암살',
-        description: '이방원이 정몽주를 선죽교에서 살해',
-      },
-    ],
-    current: {
-      id: 'event2',
-      title: '조선 건국',
-      date: '1392년 7월',
-      type: '왕조 교체',
-      description: '이성계가 왕위에 올라 조선을 건국',
-      impact: '높음',
-    },
-    after: [
-      {
-        id: 'event3',
-        title: '한양 천도 논의',
-        date: '1394년 1월',
-        type: '정치적 결정',
-        description: '새 수도 건설 계획 시작',
-      },
-      {
-        id: 'event4',
-        title: '한양 천도',
-        date: '1394년 10월',
-        type: '수도 이전',
-        description: '한양으로 수도를 옮기고 궁궐 건설',
-      },
-    ],
-  };
+  // 캐시된 인과관계 데이터 사용
+  const causalityData = (() => {
+    const chain = causalityChainsData.chains.find(c => c.id === selectedChain);
+    if (!chain) {
+      // 기본값 (fallback) - 첫 번째 체인 사용
+      const defaultChain = causalityChainsData.chains[0];
+      if (defaultChain) {
+        return {
+          before: defaultChain.before || [],
+          current: defaultChain.current,
+          after: defaultChain.after || []
+        };
+      }
+      return {
+        before: [],
+        current: { id: 'default', title: '데이터 없음', date: '', type: '', description: '' },
+        after: []
+      };
+    }
+    return {
+      before: chain.before || [],
+      current: chain.current,
+      after: chain.after || []
+    };
+  })();
 
   const EventCard = ({ event, position, isSelected }) => {
     const getBgColor = () => {
